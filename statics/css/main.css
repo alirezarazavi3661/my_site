@@ -3541,11 +3541,13 @@ body.mobile-nav-active #mobile-nav-toggle {
   background: #fafaff;
   padding: 20px 0px;
   border: 1px solid #eee;
+  width: 350px; /* Set the desired width */
+  height: 2400px; /* Set the desired height */
 }
 
-@media (max-width: 991px) {
+@media (max-width: 70px) {
   .widget-wrap {
-    margin-top: 50px;
+    margin-top: 10px;
   }
 }
 
@@ -3570,6 +3572,7 @@ body.mobile-nav-active #mobile-nav-toggle {
   border-bottom-left-radius: 20px;
   border-top-left-radius: 20px;
   background: #f8b600;
+  
 }
 
 .widget-wrap .search-widget ::-webkit-input-placeholder {
@@ -3655,7 +3658,7 @@ body.mobile-nav-active #mobile-nav-toggle {
 }
 
 .widget-wrap .popular-post-widget .popular-post-list .thumb img {
-  width: 100%;
+  max-width: 140px;
 }
 
 .widget-wrap .popular-post-widget .single-post-list {
@@ -4222,7 +4225,11 @@ body.mobile-nav-active #mobile-nav-toggle {
   color: #f8b600;
   margin-right: 30px;
 }
-
+.notification{
+  position: absolute;
+  top: 5rem;
+  right: 1rem;
+}
 /* =================================== */
 /*  Footer Styles
 /* =================================== */

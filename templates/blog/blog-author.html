@@ -1,0 +1,34 @@
+{% load static %}
+{% load blog_tags %}
+{% load post_tags %}
+
+<div class="single-sidebar-widget user-info-widget">
+    <img src="{% static 'img/blog/user-info.png' %}" alt="" />
+    <a href="#">
+          {% get_latest_post as latest_posts %}
+        	{% for post in latest_posts %}
+      <h4>{{post.author.get_full_name}}</h4>
+          {% endfor %}
+    </a>
+    <p>junior blog writer</p>
+    <ul class="social-links">
+      <li>
+        <a href="#"><i class="fa fa-facebook"></i></a>
+      </li>
+      <li>
+        <a href="#"><i class="fa fa-twitter"></i></a>
+      </li>
+      <li>
+        <a href="#"><i class="fa fa-github"></i></a>
+      </li>
+      <li>
+        <a href="#"><i class="fa fa-behance"></i></a>
+      </li>
+    </ul>
+    <p>
+      Boot camps have its supporters andit sdetractors. Some people do
+      not understand why you should have to spend money on boot camp
+      when you can get. Boot camps have itssuppor ters andits
+      detractors.
+    </p>
+  </div>

@@ -1,8 +1,11 @@
+
 {% load static %}
 <!DOCTYPE html>
-<html lang="zxx" class="no-js">
+
+  <html lang="zxx" class="no-js">
 
 <head>
+
     <!-- Mobile Specific Meta -->
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Favicon-->
@@ -31,7 +34,20 @@
     <link rel="stylesheet" href="{% static 'css/animate.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/owl.carousel.css' %}">
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <div id="notification-data" data-success="{% if success %}true{% else %}false{% endif %}"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.css">
+    <div id="notification-data" data-success="{% if success %}True{% else %}False{% endif %}"></div>
+    
+
+
+
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>    
+    <script id="dsq-count-scr" src="//127-0-0-1-8000-vqdo63wyo6.disqus.com/count.js" async></script>
 </head>
+
 
 <body>
     <header id="header">
@@ -40,8 +56,13 @@
                 <div class="row align-items-center">
                     <div class="col-lg-6 col-sm-6 col-6 header-top-left">
                         <ul>
-                            <li><a href="#">Visit Us</a></li>
-                            <li><a href="#">Buy Tickets</a></li>
+                            {% if request.user.is_authenticated %}
+                            <li><a href="#">logged in as {{request.user.username}}</a></li>
+                            <li><a href="{% url 'accounts:logout' %}">logout</a></li>
+                            {% else %}
+                            <li><a href="{% url 'accounts:login' %}">login</a></li>
+                            <li><a href="{% url 'accounts:signup' %}">signup</a></li>
+                            {% endif %}
                         </ul>
                     </div>
                     <div class="col-lg-6 col-sm-6 col-6 header-top-right">
@@ -56,6 +77,7 @@
             </div>
         </div>
         <div class="container main-menu">
+            
             <div class="row align-items-center justify-content-between d-flex">
                 <div id="logo">
                     <a href="{% url 'website:index' %}"><img src="{% static 'img/logo.png' %}" alt="" title="" /></a>
@@ -65,28 +87,27 @@
                         <li><a href="{% url 'website:index' %}">Home</a></li>
                         <li><a href="{% url 'website:about' %}">About</a></li>
                         <li><a href="{% url 'website:elements' %}">Elements</a></li>
-                        <li class="menu-has-children"><a href="">Blog</a>
+                        <li><a href="{% url 'blog:blog_home' %}">Blog</a></li>
+                        <ul>
+
+
                             <ul>
-                                <li><a href="{% url 'blog:blog_home' %}">Blog Home</a></li>
-                                <li><a href="{% url 'blog:blog_single' %}">Blog Single</a></li>
+                                <li><a href="#">Item One</a></li>
+                                <li><a href="#">Item Two</a></li>
                             </ul>
-                        
-                        
-                            <ul>
-                                
-                                
-                                    <ul>
-                                        <li><a href="#">Item One</a></li>
-                                        <li><a href="#">Item Two</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
+                            </li>
+                        </ul>
                         </li>
                         <li><a href="{% url 'website:contact' %}">Contact</a></li>
+                    
                     </ul>
+                
                 </nav><!-- #nav-menu-container -->
+            
             </div>
+            
         </div>
+    
     </header><!-- #header -->
     {% block content %}
 
@@ -130,21 +151,28 @@
                         </div>
                     </div>
                 </div>
+                
                 <div class="col-lg-3  col-md-6 col-sm-6">
+                    
                     <div class="single-footer-widget">
+                        
                         <h6>Newsletter</h6>
                         <p>
                             For business professionals caught between high OEM price and mediocre print and graphic
                             output.
                         </p>
-                        <div id="mc_embed_signup">
-                            <form target="_blank"
-                                action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01"
-                                method="get" class="subscription relative">
+                        <div >
+                            
+                            <form 
+                                
+                                action="{% url 'website:newsletter_success' %}"
+                                
+                                method="post" class="subscription relative">
+                                {% csrf_token %}
                                 <div class="input-group d-flex flex-row">
-                                    <input name="EMAIL" placeholder="Email Address" onfocus="this.placeholder = ''"
+                                    <input name="email" placeholder="Email Address" onfocus="this.placeholder = ''"
                                         onblur="this.placeholder = 'Email Address '" required="" type="email">
-                                    <button class="btn bb-btn"><span class="lnr lnr-location"></span></button>
+                                    <button class="btn bb-btn" type="submit"><span class="lnr lnr-location"></span></button>
                                 </div>
                                 <div class="mt-10 info"></div>
                             </form>
@@ -202,6 +230,56 @@
     <script src="{% static 'js/owl.carousel.min.js' %}"></script>
     <script src="{% static 'js/mail-script.js' %}"></script>
     <script src="{% static 'js/main.js' %}"></script>
+
+
+    <script>
+        // Fetch the success value using AJAX
+        $(document).ready(function() {
+    $('#newsletter-form').submit(function(event) {
+        event.preventDefault();
+     });
+     }); // Prevent the default form submission
+
+        var formData = new FormData(this);
+        $.ajax({
+            
+            url: '{% url "website:newsletter_success" %}',  // Replace with your actual URL
+            method: 'POST',
+            data: formData,
+            success: function(data) {
+        if (data.success) {
+            alert(data.message);
+        } else {
+            alert(data.message);
+        }
+    },
+    error: function(xhr, status, error) {
+        console.log('An error occurred while submitting the form.');
+        console.log('Status:', status);
+        console.log('Error:', error);
+    }
+});
+                // Function to show the pop-up notification
+                function showFormNotification() {
+                    
+                    if (success==true) {
+                        alert("Form submitted successfully!");
+                    } else {
+                        alert("Form submission encountered an error.");
+                    }
+                }                // Call the function when the document is ready
+                $(document).ready(function() {
+                    showFormNotification();
+                });
+            
+
+    </script>
+
+
+
+
+
 </body>
 
 </html>
+

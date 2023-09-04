@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>    
+        <div class="back-icon">
+            <form>
+                <input type="button" value="Go back!" onclick="history.back()">
+            </form>
+        </div>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Submission Successful</title>
+<style>
+	.back-icon {
+	   position: fixed;
+	   left: 1%;
+	   top:1%;
+	 }
+</style>
+<style>
+body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .success-container {
+            text-align: center;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .success-icon {
+            font-size: 48px;
+            color: #28a745;
+        }
+        h1 {
+            margin-top: 10px;
+            color: #333;
+        }
+        p {
+            margin: 10px 0;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="success-container">
+        <div class="success-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48">
+                <path d="M18 35l-7-7 2-2 5 5L33 12l2 2L18 35z"/>
+            </svg>
+        </div>
+        <h1>Form Submission Successful</h1>
+        <p>Thank you for subscribing!</p>
+    </div>
+</body>
+</html>
+
